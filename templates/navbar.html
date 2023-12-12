@@ -25,18 +25,21 @@
 			</ul>
 	
 			<ul class="navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+				<div class="dropdown">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="bi bi-cart4"></i> <span id="cart-count">0</span> - Items
-						<span class="caret"></span>
 					</a>
-					<ul class="dropdown-menu dropdown-cart" role="menu">
+					<ul class="dropdown-menu">
 						<li class="divider"></li>
+						<!-- <li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li> -->
 						<li>
-							<a class="text-center" id="checkout-cart" href="#">Checkout</a>
+							<a class="btn text-center" id="checkout-cart" href="#">Checkout</a>
 						</li>
 					</ul>
-				</li>
+				</div>
+				
 			</ul>
 		</div>
 	</div>
