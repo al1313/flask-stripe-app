@@ -4,34 +4,15 @@ function initAddProductButton() {
 
         var elem = $(this);
 
-        // get values
-        var price = parseInt(elem.attr('data-price'));
+        // get price_id
         var price_id = elem.attr('data-price-id');
-        var product_name = elem.attr('data-product-name');
-        var imgSrc = elem.closest('.thumbnail').children('img').attr('src');
-
-        // // add to cart html
-        // var html = `
-        //     <li>
-        //         <span class="item">
-        //             <span class="item-left">
-        //                 <img src="${imgSrc}" alt="" />
-        //                 <span class="item-info">
-        //                     <span>${product_name}</span>
-        //                     <span>$ ${price}</span>
-        //                 </span>
-        //             </span>
-        //         </span>
-        //     </li>
-        // `
-        // $('.dropdown-cart').prepend(html);
 
         // add to localstorage
         var obj = {
-            "price": price,
-            "product_name": product_name,
-            "imgSrc": imgSrc,
-            "qty": 1,            
+            "price": parseInt(elem.attr('data-price')),
+            "product_name": elem.attr('data-product-name'),
+            "imgSrc": elem.closest('.thumbnail').children('img').attr('src'),
+            "qty": 1,
         }
         saveToLocal(price_id, obj);
 
@@ -48,15 +29,13 @@ function initAddProductButton() {
                             <img src="${my_cart[key]['imgSrc']}" alt="" width="50rem" />
                             <div class="d-flex w-100 justify-content-between">
                                 <div class="row">
-                                <span>${my_cart[key]['product_name']}</span>
-                                <span>Price: ${my_cart[key]['price']}</span>
-                                <span>Quantity: ${my_cart[key]['qty']}</span>    
-                                </div>
-                                
-                            </div>
-                        
+                                    <span>${my_cart[key]['product_name']}</span>
+                                    <span>Price: ${my_cart[key]['price']}</span>
+                                    <span>Quantity: ${my_cart[key]['qty']}</span>    
+                                </div>                                
+                            </div>                        
                     </li>
-            `)            
+            `)
         }
 
         $('.dropdown-cart').html(html);
@@ -64,7 +43,7 @@ function initAddProductButton() {
         // increase counter
         var currentCount = parseInt($('#cart-count').html());
         $('#cart-count').html(currentCount += 1);
-        
+
 
     })
 }
@@ -75,17 +54,11 @@ function saveToLocal(price_id, obj) {
     // Parse the serialized data back into an aray of objects
     var a = JSON.parse(localStorage.getItem('cart'));
     // Push the new data (whether it be an object or anything else) onto the array
-
     if (!a.hasOwnProperty(price_id)) {
         a[price_id] = obj;
-        console.log("create");
     } else {
         a[price_id]['qty'] += 1;
-        console.log("add qty");
     };
-
-    console.log(a);
-
     // Re-serialize the array back into a string and store it in localStorage
     localStorage.setItem('cart', JSON.stringify(a));
 }
@@ -93,9 +66,7 @@ function saveToLocal(price_id, obj) {
 function initClearCart() {
     $('#clear-cart').click(function (e) {
         e.preventDefault();
-        console.log("clearing cart");
         clearCart();
-
     })
 }
 
@@ -105,8 +76,30 @@ function clearCart() {
     $('.dropdown-cart').html();
 }
 
-function initCheckoutButton() {
+function initMyCheckoutButton() {
+    $('#mycheckout').click(function (e) {
+        e.preventDefault();
+        var data = {
+            "email": "test.com",
+        }
+        const stripe = Stripe($('#stripeKey').attr("data-key"));
+        
+        fetch("/create-checkout-session")
+            .then((result) => { return result.json(); })
+            .then((data) => {
+                console.log(data);
+                // Redirect to Stripe Checkout
+                return stripe.redirectToCheckout({ sessionId: data.sessionId })
+            })
+            .then((res) => {
+                console.log(res);
+            });
 
+    })
+}
+
+
+function initCheckoutButton() {
     $('#checkout-cart').click(function (e) {
         e.preventDefault();
         //
@@ -171,4 +164,5 @@ $(document).ready(function () {
     initAddProductButton();
     initClearCart();
     initCheckoutButton();
+    initMyCheckoutButton();
 });
