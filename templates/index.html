@@ -3,11 +3,32 @@
 
 {% import 'components.html' as components %}
 
+<div class="px-4 py-5 my-5 text-center">
+	<h1 class="display-5 fw-bold">Discounted Phones for Everyone</h1>
+	<div class="col-lg-6 mx-auto">
+		<p class="lead mb-4">Australia's Largest Discounted Mobile Retailer</p>
+		<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+			<button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+			<button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+			<form action="/create-checkout-session" method="POST">
+				<button type="submit" class="btn btn-outline-secondary btn-lg px-4"
+					id="checkout-button">Checkout</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
 <div class="container" style="padding-top: 10em;">
 	<div class="row">
-		{{ components.product_card("Samsung Galaxy S23", "$1200", "https://www.jbhifi.com.au/cdn/shop/products/622165-Product-0-I-638239543878291692.jpg?v=1698811964") }}
-		{{ components.product_card("Google Pixel 8", "$900", "https://www.jbhifi.com.au/cdn/shop/products/662718-Product-0-I-638302518603197997_e6793f75-5ce7-47ff-a413-15a10b00317c.jpg?v=1701374642") }}
-		{{ components.product_card("Apple iPhone 15", "$1500", "https://www.jbhifi.com.au/cdn/shop/products/639168-Product-0-I-638301483010334192.jpg?v=1698811953") }}	
+		{{ components.product_card(name="Samsung Galaxy S23", price="1200",
+		price_id="price_1OMfgeJopRORFg9GWw8uMzD5",
+		img_url="https://www.jbhifi.com.au/cdn/shop/products/622165-Product-0-I-638239543878291692.jpg?v=1698811964") }}
+		{{ components.product_card(name="Google Pixel 8", price="900",
+		price_id="price_1OMfgDJopRORFg9GNPTxl4DR",
+		img_url="https://www.jbhifi.com.au/cdn/shop/products/662718-Product-0-I-638302518603197997_e6793f75-5ce7-47ff-a413-15a10b00317c.jpg?v=1701374642")
+		}}
 
 	</div>
 </div>

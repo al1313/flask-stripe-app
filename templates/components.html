@@ -1,4 +1,4 @@
-{% macro product_card(name, price, img_url) -%}
+{% macro product_card(name, price, price_id, img_url) -%}
 <div class="col">
     <div class="thumbnail">
         <img src="{{ img_url }}" class="img-responsive" width="200rem">
@@ -9,13 +9,13 @@
                 </div>
                 <div class="col-md-6 col-xs-6 price">
                     <h3>
-                        <label>{{price}}</label>
+                        <label>${{price}}</label>
                     </h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <a href="#" class="btn btn-success btn-product" data-amount="64999" data-product="Galaxy S5">
+                    <a href="#" class="btn btn-success btn-product" data-price="{{ price }}" data-price-id="{{ price_id }}" data-product-name="{{ name }}"">
                         <i class="bi bi-cart4"></i> Add to Cart
                     </a>
                 </div>
