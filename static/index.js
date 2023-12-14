@@ -103,8 +103,7 @@ function initMyCheckoutButton() {
             body: JSON.stringify(cartDataForStripe)
         })
             .then((response) => { return response.json(); })
-            .then((data) => {
-                console.log(data);
+            .then((data) => {                
                 // Redirect to Stripe Checkout
                 return stripe.redirectToCheckout({ sessionId: data.sessionId })
             })
